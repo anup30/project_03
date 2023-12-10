@@ -33,7 +33,15 @@ class Student extends Person {
   late String? studentID;
   late String? grade;
   late List<int> courseScores;
-  Student({required String name, required int age, required String address, this.studentID='student_id', this.grade='grade', required this.courseScores}): super(name,age,address);
+  Student({
+    required String name,
+    required int age,
+    required String address,
+    this.studentID='student_id',
+    this.grade='grade',
+    required this.courseScores
+  })
+      : super(name,age,address);
   @override
   void displayRole() {
     print('Role: Student');
@@ -59,7 +67,13 @@ class Student extends Person {
 class Teacher extends Person{
   late String? teacherID;
   late List<String> coursesTaught;
-  Teacher({required String name, required int age, required String address, this.teacherID='teacher_id', required this.coursesTaught}): super(name,age,address);
+  Teacher({
+    required String name,
+    required int age,
+    required String address,
+    this.teacherID='teacher_id',
+    required this.coursesTaught})
+      : super(name,age,address);
   @override
   void displayRole(){
     print('Role: Teacher');
@@ -79,11 +93,24 @@ class Teacher extends Person{
 }
 
 void main(){
-  Student student1 = Student(name:'John Doe',age:20,address:'123 Main Street',studentID:'id-s45',grade:'A+',courseScores:[90,85,82],);
+  Student student1 = Student(
+    name:'John Doe',
+    age:20,
+    address:'123 Main Street',
+    studentID:'id-s45',
+    grade:'A+',
+    courseScores:[90,85,82],
+  );
   print("Student Information:");
   student1.studentInfo();
   print(''); //new line
-  Teacher teacher1 =Teacher(name: 'Mrs.Smith',age: 35, address: '456 Oak St',teacherID:'id-t50', coursesTaught: ['Math','English','Bangla']);
+  Teacher teacher1 =Teacher(
+      name: 'Mrs.Smith',
+      age: 35,
+      address: '456 Oak St',
+      teacherID:'id-t50',
+      coursesTaught: ['Math','English','Bangla']
+  );
   print("Teacher Information:");
   teacher1.teacherInfo();
 }
