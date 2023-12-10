@@ -109,7 +109,7 @@ void main(){
       age: 35,
       address: '456 Oak St',
       teacherID:'id-t50',
-      coursesTaught: ['Math','English','Bangla']
+      coursesTaught: ['Math','English','Bangla'],
   );
   print("Teacher Information:");
   teacher1.teacherInfo();
