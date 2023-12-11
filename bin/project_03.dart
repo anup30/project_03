@@ -1,116 +1,37 @@
-//assignment, module 5,
-//with private values, getters, setters, named parameters in constructor
-abstract class Role{
-  void displayRole();
+//live test 11.12.23
+class FruitColorPrice{
+  String? color;
+  double? price;
+  FruitColorPrice(this.color,this.price);
 }
 
-class Person implements Role{
-  late String _name;
-  late int _age;
-  late String _address;
-  Person(this._name, this._age, this._address);
-  //setter
-  set name(String name)=> _name=name;
-  set age(int age)=> _age=age;
-  set address(String address)=> _address=address;
-  //getter
-  String get name => _name;
-  int get age => _age;
-  String get address => _address;
-  @override
-  void displayRole(){
-    //implemented in child classes.
-  }
-  //getter for attributes
-  void get personInfo{
-    print('Name: $name');
-    print('Age: $age');
-    print('Address: $address');
+displayFruitDetails(List<Map<String,FruitColorPrice>> lm){
+  List<String>keys =lm[0].keys.toList();
+  int len = lm[0].length;
+  for(int i=0; i<len; i++){
+    //Name: Apple, Color: Red, Price: $2.5
+    print('Name: ${keys[i]}, Color: ${lm[0][keys[i]]!.color}, Price: ${lm[0][keys[i]]!.price}');
   }
 }
 
-class Student extends Person {
-  late String? studentID;
-  late String? grade;
-  late List<int> courseScores;
-  Student({
-    required String name,
-    required int age,
-    required String address,
-    this.studentID='student_id',
-    this.grade='grade',
-    required this.courseScores
-  })
-      : super(name,age,address);
-  @override
-  void displayRole() {
-    print('Role: Student');
-  }
-  void averageScore() {
-    int length = courseScores.length;
-    int sum = 0;
-    for (int i = 0; i < length; i++) {
-      sum += courseScores[i];
-    }
-    double avg = sum / length;
-    print('Average Score: ${avg.toStringAsFixed(2)}');
-  }
-  void studentInfo() {
-    displayRole();
-    personInfo; //getter call, no () used
-    print('studentID: $studentID');
-    print('grade: $grade');
-    averageScore();
+applyPriceDiscount(List<Map<String,FruitColorPrice>> lm, double discount){
+  double multiply= (100-discount)/100;
+  List<String>keys =lm[0].keys.toList();
+  int len = lm[0].length;
+  for(int i=0; i<len; i++){
+    lm[0][keys[i]]!.price = lm[0][keys[i]]!.price!*multiply;
   }
 }
 
-class Teacher extends Person{
-  late String? teacherID;
-  late List<String> coursesTaught;
-  Teacher({
-    required String name,
-    required int age,
-    required String address,
-    this.teacherID='teacher_id',
-    required this.coursesTaught})
-      : super(name,age,address);
-  @override
-  void displayRole(){
-    print('Role: Teacher');
-  }
-  void displayCoursesTaught(){
-    print('Courses Taught:');
-    for(int i=0; i<coursesTaught.length; i++){
-      print('- ${coursesTaught[i]}');
-    }
-  }
-  void teacherInfo(){
-    displayRole();
-    personInfo;
-    print('teacherID: $teacherID');
-    displayCoursesTaught();
-  }
-}
-
-void main(){
-  Student student1 = Student(
-    name:'John Doe',
-    age:20,
-    address:'123 Main Street',
-    studentID:'id-s45',
-    grade:'A+',
-    courseScores:[90,85,82],
-  );
-  print("Student Information:");
-  student1.studentInfo();
-  print(''); //new line
-  Teacher teacher1 =Teacher(
-      name: 'Mrs.Smith',
-      age: 35,
-      address: '456 Oak St',
-      teacherID:'id-t50',
-      coursesTaught: ['Math','English','Bangla'],
-  );
-  print("Teacher Information:");
-  teacher1.teacherInfo();
+void main() {
+  FruitColorPrice apple = FruitColorPrice('Red',2.5);
+  FruitColorPrice banana = FruitColorPrice('Yellow',1.0);
+  FruitColorPrice grapes = FruitColorPrice('Purple',3.0);
+  Map<String,FruitColorPrice> m1={'Apple':apple, 'Banana':banana, 'Grapes': grapes};
+  List<Map<String,FruitColorPrice>> fruits =[m1];
+  print('Original Fruit Details before Discount:');
+  displayFruitDetails(fruits);
+  applyPriceDiscount(fruits,10);
+  print('Fruit Details After Applying 10% Discount:');
+  displayFruitDetails(fruits);
 }
